@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="x.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+
+
+try{
+$(document).ready(
+    function () {
+        
+        function callMain(fileName,myfunction){    
+            $.ajax({
+                type: "GET",
+                url: fileName,
+                dataType: "text",
+                success: function (data) { 
+                    myfunction(data) 
+                    console.log("success")
+                    return "success"
+                },
+                error: function (){
+                    console.log("error");
+                    return "error"
+                },
+            });
+        }
+        
+        console.log(callMain("M1_TR_M2_PC.csv",processData))
+        //console.log(callMain("PC_M1_M2.csv",processData1))
+        //console.log(callMain("SC_M1_M2.csv",processData2))
+       // console.log(callMain("SN_M1_M2.csv",processData3))
+       // console.log(callMain("sample.csv",processData1))
+        function ChartCanvas(containerString, textString, x, y,z){
+            return  new CanvasJS.Chart(containerString, {
+            theme: "theme2",
+            title: {
+                text: textString
+            },
+            axisX:{
+                title :x
+            },
+            axisY:[
+            {   
+                title: y,
+            },
+            {   titleFontColor: "#369EAD",
+                title: z,
+            }
+            ],
+            
+            data: [
+            {
+                type: "line",
+                dataPoints: []
+            },
+            {
+                type: "line",
+                dataPoints: []
+            }
+            ]
+        })};
+         
+        function processData(allText) {//console.log("hi");
+            console.log(allText);
+            var allLinesArray = allText.split(/\r|\n/);
+            if (allLinesArray.length > 0) {//console.log("hi");
+                var dataPoints = [];
+                var dataPointsx= [];
+                var dataPointsy= [];
+                var dataPointsz= [];
+                var dataPointst= [];
+                //var rowData = allLinesArray[0].split(',');
+                //console.log(allLinesArray.length);
+                var x=allLinesArray[0].split(',');
+                for (var i = 1; i <= allLinesArray.length - 1; i+=100) {
+                var rowData = allLinesArray[i].split(',');
+                if(rowData && rowData.length > 1){ console.log("hi");
+                    dataPoints.push({ label: rowData[0], y: parseFloat(rowData[8]) });
+                    dataPointsx.push({ label: rowData[0], y: parseFloat(rowData[9]) });
+                    dataPointst.push({ label: rowData[0], y: parseFloat(rowData[10]) });
+                    dataPointsy.push({ label: rowData[0], y: parseFloat(rowData[13]) });
+                    dataPointsz.push({ label: rowData[0], y: parseFloat(rowData[14]) });
+
+                }
+                }
+                var chart = ChartCanvas("chartContainer","Voltage vs Time",x[0],x[8])
+                var chartx = ChartCanvas("chartContainerx","Position vs Time",x[0],x[9],x[10])
+                var charty = ChartCanvas("chartContainery","Current vs Time",x[0],x[13])
+                var chartz = ChartCanvas("chartContainerz","Power vs Time",x[0],x[14])
+
+                chart.options.data[0].dataPoints = dataPoints;
+                chart.render();
+                chartx.options.data[0].dataPoints = dataPointsx;
+                chartx.render();
+                chartx.options.data[1].dataPoints = dataPointst;
+                chartx.render();
+                charty.options.data[0].dataPoints = dataPointsy;
+                charty.render();
+                chartz.options.data[0].dataPoints = dataPointsz;
+                chartz.render();
+            }
+        }
+        function processData1(allText) {//console.log("hi");
+            console.log(allText);
+            var allLinesArray = allText.split(/\r|\n/);
+            if (allLinesArray.length > 0) {//console.log("hi");
+                var dataPoints = [];
+                var dataPointsx= [];
+                var dataPointsy= [];
+                var dataPointsz= [];
+                var dataPointst= [];
+                //var rowData = allLinesArray[0].split(',');
+                //console.log(allLinesArray.length);
+                var x=allLinesArray[0].split(',');
+                for (var i = 1; i <= allLinesArray.length - 1; i+=100) {
+                var rowData = allLinesArray[i].split(',');
+                if(rowData && rowData.length > 1){ console.log("hi");
+                    dataPoints.push({ label: rowData[0], y: parseFloat(rowData[8]) });
+                    dataPointsx.push({ label: rowData[0], y: parseFloat(rowData[9]) });
+                    dataPointst.push({ label: rowData[0], y: parseFloat(rowData[10]) });
+                    dataPointsy.push({ label: rowData[0], y: parseFloat(rowData[13]) });
+                    dataPointsz.push({ label: rowData[0], y: parseFloat(rowData[14]) });
+
+                }
+                }
+                var chart = ChartCanvas("chartContainer","Voltage vs Time",x[0],x[8])
+                var chartx = ChartCanvas("chartContainerx","Position vs Time",x[0],x[9],x[10])
+                var charty = ChartCanvas("chartContainery","Current vs Time",x[0],x[13])
+                var chartz = ChartCanvas("chartContainerz","Power vs Time",x[0],x[14])
+
+                chart.options.data[0].dataPoints = dataPoints;
+                chart.render();
+                chartx.options.data[0].dataPoints = dataPointsx;
+                chartx.render();
+                chartx.options.data[1].dataPoints = dataPointst;
+                chartx.render();
+                charty.options.data[0].dataPoints = dataPointsy;
+                charty.render();
+                chartz.options.data[0].dataPoints = dataPointsz;
+                chartz.render();
+            }
+        }
+        function processData2(allText) {//console.log("hi");
+            console.log(allText);
+            var allLinesArray = allText.split(/\r|\n/);
+            if (allLinesArray.length > 0) {//console.log("hi");
+                var dataPoints = [];
+                var dataPointsx= [];
+                var dataPointsy= [];
+                var dataPointsz= [];
+                var dataPointst= [];
+                //var rowData = allLinesArray[0].split(',');
+                //console.log(allLinesArray.length);
+                var x=allLinesArray[0].split(',');
+                for (var i = 1; i <= allLinesArray.length - 1; i+=100) {
+                var rowData = allLinesArray[i].split(',');
+                if(rowData && rowData.length > 1){ console.log("hi");
+                    dataPoints.push({ label: rowData[0], y: parseFloat(rowData[8]) });
+                    dataPointsx.push({ label: rowData[0], y: parseFloat(rowData[11]) });
+                    dataPointst.push({ label: rowData[0], y: parseFloat(rowData[12]) });
+                    dataPointsy.push({ label: rowData[0], y: parseFloat(rowData[13]) });
+                    dataPointsz.push({ label: rowData[0], y: parseFloat(rowData[14]) });
+
+                }
+                }
+                var chart = ChartCanvas("chartContainer","Voltage vs Time",x[0],x[8],null)
+                var chartx = ChartCanvas("chartContainerx","Speed vs Time",x[0],x[11],x[12])
+                var charty = ChartCanvas("chartContainery","Current vs Time",x[0],x[13],null)
+                var chartz = ChartCanvas("chartContainerz","Power vs Time",x[0],x[14],null)
+
+                chart.options.data[0].dataPoints = dataPoints;
+                chart.render();
+                chartx.options.data[0].dataPoints = dataPointsx;
+                chartx.render();
+                chartx.options.data[1].dataPoints = dataPointst;
+                chartx.render();
+                charty.options.data[0].dataPoints = dataPointsy;
+                charty.render();
+                chartz.options.data[0].dataPoints = dataPointsz;
+                chartz.render();
+            }
+        }
+        function processData3(allText) {//console.log("hi");
+            console.log(allText);
+            var allLinesArray = allText.split(/\r|\n/);
+            if (allLinesArray.length > 0) {//console.log("hi");
+                var dataPoints = [];
+                var dataPointsx= [];
+                var dataPointsy= [];
+                var dataPointsz= [];
+                //var rowData = allLinesArray[0].split(',');
+                //console.log(allLinesArray.length);
+                var x=allLinesArray[0].split(',');
+                for (var i = 1; i <= allLinesArray.length - 1; i+=100) {
+                var rowData = allLinesArray[i].split(',');
+                if(rowData && rowData.length > 1){ console.log("hi");
+                    dataPoints.push({ label: rowData[0], y: parseFloat(rowData[8]) });
+                    dataPointsx.push({ label: rowData[0], y: parseFloat(rowData[9]) });
+                    dataPointsy.push({ label: rowData[0], y: parseFloat(rowData[13]) });
+                    dataPointsz.push({ label: rowData[0], y: parseFloat(rowData[14]) });
+
+                }
+                }
+                var chart = ChartCanvas("chartContainer","Voltage vs Time",x[0],x[8])
+                var chartx = ChartCanvas("chartContainerx","Position vs Time",x[0],x[9])
+                var charty = ChartCanvas("chartContainery","Current vs Time",x[0],x[13])
+                var chartz = ChartCanvas("chartContainerz","Power vs Time",x[0],x[14])
+
+                chart.options.data[0].dataPoints = dataPoints;
+                chart.render();
+                chartx.options.data[0].dataPoints = dataPointsx;
+                chartx.render();
+                charty.options.data[0].dataPoints = dataPointsy;
+                charty.render();
+                chartz.options.data[0].dataPoints = dataPointsz;
+                chartz.render();
+            }
+        }
+
+        
+            
+        
+        // }
+          
+});}
+catch(e){
+    alert('An error has occurred: '+e.message)
+}
+
+</script>
+<script type="text/javascript" src="canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                <div id="chartContainery" style="height: 400px; width: 100%;"></div>
+            </div>
+            <div class="col-lg-6">
+                <div id="chartContainerx" style="height: 400px; width: 100%;"></div>
+                <div id="chartContainerz" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
